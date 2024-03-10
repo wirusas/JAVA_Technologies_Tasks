@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -41,17 +38,20 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User deleteUser(Long id) {
-        User userToDelete = (User) getUserById(id);
-        if (userToDelete != null) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (((Optional<?>) userOptional).isPresent()) {
+            User userToDelete = userOptional.get();
             userRepository.delete(userToDelete);
+            return userToDelete;
         }
-        return userToDelete;
+        return null;
     }
 
     @Override
     public User updateUser(Long id, User newUser) {
-        User existingUser = (User) getUserById(id);
-        if (existingUser != null) {
+        Optional<User> optionalExistingUser = userRepository.findById(id);
+        if (optionalExistingUser.isPresent()) {
+            User existingUser = optionalExistingUser.get();
             existingUser.setUsername(newUser.getUsername());
             existingUser.setFirstName(newUser.getFirstName());
             existingUser.setLastName(newUser.getLastName());
