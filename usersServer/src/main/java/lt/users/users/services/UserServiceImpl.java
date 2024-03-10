@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User deleteUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
-        if (((Optional<?>) userOptional).isPresent()) {
+        if (userOptional.isPresent()) {
             User userToDelete = userOptional.get();
             userRepository.delete(userToDelete);
             return userToDelete;
