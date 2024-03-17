@@ -1,5 +1,4 @@
 package lt.users.users.controller;
-
 import lt.users.users.model.User;
 import lt.users.users.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
