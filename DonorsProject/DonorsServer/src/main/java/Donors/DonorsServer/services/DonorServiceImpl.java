@@ -28,8 +28,9 @@ public class DonorServiceImpl implements DonorService{
     }
 
     @Override
-    public List<Donor> getDonorById(Long id) {
-        return donorRepository.findAllById(Collections.singleton(id));
+    public Donor getDonorById(Long id) {
+        Optional<Donor> donorOptional = donorRepository.findById(id);
+        return donorOptional.orElseThrow(() -> new RuntimeException("Donor not found with id: " + id ));
     }
 
     @Override

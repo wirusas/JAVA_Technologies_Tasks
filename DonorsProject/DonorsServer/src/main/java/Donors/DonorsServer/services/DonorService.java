@@ -10,7 +10,7 @@ public interface DonorService {
 
     Donor createDonor(Donor newDonor);
 
-    List<Donor> getDonorById(Long id);
+    Donor getDonorById(Long id);
 
     Donor deleteDonor(Long id);
 
